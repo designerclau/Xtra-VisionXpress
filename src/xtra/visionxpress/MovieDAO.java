@@ -110,7 +110,7 @@ public class MovieDAO {
         con = ConnectionDB.getConnection();
      
         String sql="UPDATE movies SET movietitle = ?, description = ?, cast =?, genre =?,availabel? "
-                  +"WHERE id=?";
+                  +"WHERE movieid=?";
         PreparedStatement stmt = null; 
         
         try {
@@ -142,7 +142,7 @@ public class MovieDAO {
     public List<Movie> search(int id){
         con = ConnectionDB.getConnection();
      
-        String sql="Select * from movies WHERE id=?";
+        String sql="Select * from movies WHERE movieid=?";
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<Movie> movies = new ArrayList();
@@ -182,7 +182,7 @@ public class MovieDAO {
 
         con = ConnectionDB.getConnection();
      
-        String sql="DELETE FROM movies WHERE id=?";
+        String sql="DELETE FROM movies WHERE movieid=?";
         PreparedStatement stmt = null; 
         
         try {
