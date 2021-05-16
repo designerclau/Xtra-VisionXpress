@@ -10,7 +10,7 @@ import java.sql.Date;
 public class Payment {
 
     private int paymentid;
-    private Float Amount;
+    private Double Amount;
     private Date date;
     private Date time;
     private User user;
@@ -18,7 +18,7 @@ public class Payment {
     public Payment() {
     }
 
-    public Payment(int paymentid, Float Amount, Date date, Date time, User user) {
+    public Payment(int paymentid, Double Amount, Date date, Date time, User user) {
         this.paymentid = paymentid;
         this.Amount = Amount;
         this.date = date;
@@ -34,11 +34,11 @@ public class Payment {
         this.paymentid = paymentid;
     }
 
-    public Float getAmount() {
+    public Double getAmount() {
         return Amount;
     }
 
-    public void setAmount(Float Amount) {
+    public void setAmount(Double Amount) {
         this.Amount = Amount;
     }
 

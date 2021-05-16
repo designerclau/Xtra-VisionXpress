@@ -14,12 +14,15 @@ import java.io.UnsupportedEncodingException;
 import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -205,5 +208,15 @@ public class Tools {
          
     }
     
-    
+    public String addDays()
+    {
+       DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+       Calendar gc = Calendar.getInstance();
+
+        // add 7 days:
+        gc.add((GregorianCalendar.DAY_OF_MONTH), 7);
+        String dater = df.format(gc.getTime());
+        
+        return dater;
+    }
 }

@@ -11,7 +11,7 @@ import java.sql.Date;
 public class Rent {
     private int rentid;
     private Date datarent;
-    private Date datareturn;
+    private String datareturn;
     private Movie movie;
     private Payment payment;
     private int quantity;
@@ -20,7 +20,7 @@ public class Rent {
     public Rent() {
     }
 
-    public Rent(int rentid, Date datarent, Date datareturn, Movie movie, Payment payment, int quantity, Boolean returned) {
+    public Rent(int rentid, Date datarent, String datareturn, Movie movie, Payment payment, int quantity, Boolean returned) {
         this.rentid = rentid;
         this.datarent = datarent;
         this.datareturn = datareturn;
@@ -46,11 +46,11 @@ public class Rent {
         this.datarent = datarent;
     }
 
-    public Date getDatareturn() {
+    public String getDatareturn() {
         return datareturn;
     }
 
-    public void setDatareturn(Date datareturn) {
+    public void setDatareturn(String datareturn) {
         this.datareturn = datareturn;
     }
 

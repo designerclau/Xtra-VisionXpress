@@ -1,6 +1,20 @@
 
 package xtra.visionxpress;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import java.text.DateFormat;
+import java.util.GregorianCalendar;
+
 /**
  *
  * @author Claudinea de Almeida
@@ -10,11 +24,29 @@ public class CardPayment extends javax.swing.JFrame {
     /**
      * Creates new form MenuShowMovies
      */
-    public CardPayment() {
+    //java.sql.Date actualdev = new java.sql.Date(System.currentTimeMillis()+7);
+    int id = 0;
+    
+    public CardPayment(Rent rent, int movieid) throws ParseException {
         initComponents();
+        id = movieid;
+        //setting window at centre
         setLocationRelativeTo( null );
         setDefaultCloseOperation(CardPayment.DISPOSE_ON_CLOSE);
+        
+         //setting the logo
+        URL url = this.getClass().getResource("MovieIcon.png"); 
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url); 
+        this.setIconImage(imagemTitulo);
+        
+       
     }
+
+    private CardPayment() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,7 +61,7 @@ public class CardPayment extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLFilm1pic2 = new javax.swing.JLabel();
-        jLFilm1pic6 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,13 +74,16 @@ public class CardPayment extends javax.swing.JFrame {
 
         jLFilm1pic2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLFilm1pic2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLFilm1pic2.setText("No Picture");
+        jLFilm1pic2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/xtra/visionxpress/cardreader.png"))); // NOI18N
+        jLFilm1pic2.setToolTipText("Click to start the process...");
         jLFilm1pic2.setOpaque(true);
+        jLFilm1pic2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLFilm1pic2MouseClicked(evt);
+            }
+        });
 
-        jLFilm1pic6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLFilm1pic6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLFilm1pic6.setText("x");
-        jLFilm1pic6.setOpaque(true);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/xtra/visionxpress/arrow2.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -57,17 +92,19 @@ public class CardPayment extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(jLabel4)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(72, 72, 72)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLFilm1pic6, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(102, 102, 102)
-                        .addComponent(jLFilm1pic2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(87, 87, 87))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(87, 87, 87))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(97, 97, 97)
+                        .addComponent(jLFilm1pic2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,10 +114,12 @@ public class CardPayment extends javax.swing.JFrame {
                 .addGap(49, 49, 49)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLFilm1pic2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLFilm1pic6, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLFilm1pic2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -97,6 +136,68 @@ public class CardPayment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jLFilm1pic2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLFilm1pic2MouseClicked
+        //make payment
+        //calling method   
+        Rent rent = new Rent();
+        paymentMaker(rent, id);
+        
+        
+        
+    }//GEN-LAST:event_jLFilm1pic2MouseClicked
+
+    
+    private void paymentMaker(Rent rent, int movieid){
+        
+        User user = new User();
+        
+        //Instance of the payment class to set the values in the respective variable
+        Payment payment = new Payment();
+        Double total = rent.getQuantity()*2.99;
+        payment.setAmount(total);
+        payment.setDate(rent.getDatarent());
+        payment.setUser(user);
+      
+        
+        PaymentDAO pDAO = new PaymentDAO();
+        
+        String xp = pDAO.Save(payment);
+        
+        //getting the payment Id added
+        String array[] = new String[2];
+
+        array = xp.split(" - ");
+        
+        int paymentid=Integer.parseInt(array[1]);
+        boolean res = Boolean.valueOf(array[0]);
+        if (res){
+            JOptionPane.showMessageDialog(null, "Processing...");
+        }
+        
+        //settign the payment in the rent class        
+        rent.setPayment(payment);
+        
+        List<Payment> payments = new ArrayList();
+    
+        for(Payment e:pDAO.search(paymentid)){
+            payment.setPaymentid(paymentid);
+        }
+        
+        Movie movie = new Movie();   
+        movie.setMovieid(movieid);
+      
+        Tools tools = new Tools();
+        
+        String dater=tools.addDays();
+       
+        rent.setDatareturn(dater);
+        RentDAO DAO = new RentDAO();
+        
+        boolean xr = DAO.Save(rent, movie, payment);
+        if (xr){
+            JOptionPane.showMessageDialog(null, "Please wait. Updating your rent");
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -137,7 +238,7 @@ public class CardPayment extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLFilm1pic2;
-    private javax.swing.JLabel jLFilm1pic6;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;

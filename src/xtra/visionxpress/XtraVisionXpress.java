@@ -5,6 +5,10 @@
  */
 package xtra.visionxpress;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
+
 /**
  *
  * @author 35383
@@ -18,6 +22,12 @@ public class XtraVisionXpress extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo( null );
         setDefaultCloseOperation(XtraVisionXpress.DISPOSE_ON_CLOSE);
+        
+        //setting the logo
+        URL url = this.getClass().getResource("MovieIcon.png"); 
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url); 
+        this.setIconImage(imagemTitulo);
+        
     }
 
     /**

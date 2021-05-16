@@ -5,21 +5,87 @@
  */
 package xtra.visionxpress;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
+import java.sql.Date;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
- * @author 35383
+ * @author Claudinea de ALmeida
  */
 public class MovieRentList extends javax.swing.JFrame {
 
     /**
      * Creates new form MenuShowMovies
      */
-    public MovieRentList() {
+    private int idMovie;
+    Movie movie = new Movie();
+    //getting the current date of the system
+    Date actualDate = new Date(System.currentTimeMillis());
+    
+    Rent rent = new Rent();
+    
+    public MovieRentList(int id) {
         initComponents();
+        //setting the window on centre of the screen
         setLocationRelativeTo( null );
         setDefaultCloseOperation(MovieRentList.DISPOSE_ON_CLOSE);
+        
+        //
+        idMovie=id;
+        ListMovie(id);
+        
+         //setting the logo
+        URL url = this.getClass().getResource("MovieIcon.png"); 
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url); 
+        this.setIconImage(imagemTitulo);
     }
 
+    private MovieRentList() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void ListMovie(int id){
+        
+        //input in the table from the user selection
+        DefaultTableModel model = (DefaultTableModel) jTabListSelectedMovies.getModel();
+        model.setNumRows(0);
+        
+        Movie movie = new Movie();
+        MovieDAO daoR = new MovieDAO();
+    
+        //setting the movie id
+        movie.setMovieid(id);
+        Double totGeral=0.0;
+        Double amount=2.9;
+        
+        //updating the model to add new row to the table
+        for(Movie e:daoR.search(id)){
+            model.addRow(new Object[]{
+                  e.getMovietitle(),
+             //     e.getName()
+                   1,
+                   amount,
+                   totGeral=totGeral+amount
+            });
+        }
+        jLabelTotGeral.setText(Double.toString(totGeral));
+        
+        //setting rent data
+        rent.setDatarent(actualDate);
+        rent.setMovie(movie);
+        rent.setQuantity(1);
+        rent.setReturned(false);
+   
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,7 +103,7 @@ public class MovieRentList extends javax.swing.JFrame {
         jTabListSelectedMovies = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        jLabelTotGeral = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,6 +113,11 @@ public class MovieRentList extends javax.swing.JFrame {
 
         btntouchtorent.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btntouchtorent.setText("Checkout");
+        btntouchtorent.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btntouchtorentMouseClicked(evt);
+            }
+        });
         btntouchtorent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btntouchtorentActionPerformed(evt);
@@ -55,6 +126,11 @@ public class MovieRentList extends javax.swing.JFrame {
 
         btntouchtorent1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btntouchtorent1.setText("Cancel");
+        btntouchtorent1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btntouchtorent1MouseClicked(evt);
+            }
+        });
         btntouchtorent1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btntouchtorent1ActionPerformed(evt);
@@ -107,9 +183,9 @@ public class MovieRentList extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel7.setText("Total     €");
 
-        jLabel8.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel8.setText("0.00");
+        jLabelTotGeral.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabelTotGeral.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelTotGeral.setText("0.00");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -120,22 +196,24 @@ public class MovieRentList extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btntouchtorent1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btntouchtorent, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(42, 42, 42)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btntouchtorent, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btntouchtorent1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(29, 29, 29)
-                                .addComponent(jLabel4))))
+                                .addComponent(jLabel4))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(81, 81, 81)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(178, 178, 178)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addComponent(jLabelTotGeral, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,16 +224,16 @@ public class MovieRentList extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btntouchtorent, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
+                        .addGap(18, 18, 18)
                         .addComponent(btntouchtorent1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                    .addComponent(jLabelTotGeral, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -173,8 +251,7 @@ public class MovieRentList extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btntouchtorentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntouchtorentActionPerformed
-        this.dispose();
-        new MenuShowMovies().setVisible(true);
+       
     }//GEN-LAST:event_btntouchtorentActionPerformed
 
     private void btntouchtorent1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntouchtorent1ActionPerformed
@@ -182,24 +259,6 @@ public class MovieRentList extends javax.swing.JFrame {
     }//GEN-LAST:event_btntouchtorent1ActionPerformed
 
     private void jTabListSelectedMoviesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabListSelectedMoviesMouseClicked
-        // TODO add your handling code here:
-//        clearTextRoutine();
-//        DefaultTableModel model = (DefaultTableModel) jTabListSelectedMovies.getModel();
-//        ResidentHistory resident = new ResidentHistory();
-//        ResidentDAO daoR = new ResidentDAO();
-//        List<ResidentHistory> residents = new ArrayList();
-//
-//        idResident = (int)jTabListSelectedMovies.getValueAt(jTabListSelectedMovies.getSelectedRow(), 0);
-//
-//        residents=daoR.searchResident(idResident);
-//
-//        for (ResidentHistory c : residents) {
-//            jTextResidentNameRoutine.setText(c.getName());
-//            caminho=(c.getPicture());
-//        }
-//
-//        Image img = new ImageIcon(caminho).getImage().getScaledInstance(jLResidentPicRoutine.getWidth(),jLResidentPicRoutine.getHeight(), Image.SCALE_DEFAULT );
-//        jLResidentPicRoutine.setIcon(new ImageIcon(img));
 
     }//GEN-LAST:event_jTabListSelectedMoviesMouseClicked
 
@@ -209,25 +268,90 @@ public class MovieRentList extends javax.swing.JFrame {
 
     private void jTabListSelectedMoviesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTabListSelectedMoviesKeyReleased
         // TODO add your handling code here:
-//        clearTextRoutine();
-//        DefaultTableModel model = (DefaultTableModel) jTabListSelectedMovies.getModel();
-//        ResidentHistory resident = new ResidentHistory();
-//        ResidentDAO daoR = new ResidentDAO();
-//        List<ResidentHistory> residents = new ArrayList();
-//
-//        idResident = (int)jTabListSelectedMovies.getValueAt(jTabListSelectedMovies.getSelectedRow(), 0);
-//
-//        residents=daoR.searchResident(idResident);
-//
-//        for (ResidentHistory c : residents) {
-//            jTextResidentNameRoutine.setText(c.getName());
-//            caminho=(c.getPicture());
-//        }
-//
-//        Image img = new ImageIcon(caminho).getImage().getScaledInstance(jLResidentPicRoutine.getWidth(),jLResidentPicRoutine.getHeight(), Image.SCALE_DEFAULT );
-//        jLResidentPicRoutine.setIcon(new ImageIcon(img));
+
     }//GEN-LAST:event_jTabListSelectedMoviesKeyReleased
 
+    private void btntouchtorentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btntouchtorentMouseClicked
+        
+         paymentMaker(rent,idMovie);
+       
+        
+    }//GEN-LAST:event_btntouchtorentMouseClicked
+
+    private void btntouchtorent1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btntouchtorent1MouseClicked
+            this.dispose();
+            /* Create and display the main form */
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new XtraVisionXpress().setVisible(true);
+                }
+            });
+    }//GEN-LAST:event_btntouchtorent1MouseClicked
+
+    private void paymentMaker(Rent rent, int movieid){
+        
+        JOptionPane.showMessageDialog(null, "Please insert your card all the way into the reader");
+        User user = new User();
+        
+        Payment payment = new Payment();
+        Double total = rent.getQuantity()*2.99;
+        payment.setAmount(total);
+        payment.setDate(rent.getDatarent());
+        payment.setUser(user);
+      
+        
+        PaymentDAO pDAO = new PaymentDAO();
+        
+        String xp = pDAO.Save(payment);
+        
+        //getting the payment Id added
+        String array[] = new String[2];
+
+        array = xp.split(" - ");
+        
+        int paymentid=Integer.parseInt(array[1]);
+        boolean res = Boolean.valueOf(array[0]);
+        if (res){
+            JOptionPane.showMessageDialog(null, "Processing...");
+        }
+        
+        //settign the payment in the rent class        
+        rent.setPayment(payment);
+        
+        List<Payment> payments = new ArrayList();
+    
+        for(Payment e:pDAO.search(paymentid)){
+            payment.setPaymentid(paymentid);
+        }
+        
+        Movie movie = new Movie();   
+        movie.setMovieid(movieid);
+      
+        //instance of the class tools to increase the date
+        Tools tools = new Tools();
+        
+        String dater=tools.addDays();
+       
+        rent.setDatareturn(dater);
+        RentDAO DAO = new RentDAO();
+        
+        //saving the rent
+        boolean xr = DAO.Save(rent, movie, payment);
+        if (xr){
+            JOptionPane.showMessageDialog(null, "Please wait. Updating your rent");
+            JOptionPane.showMessageDialog(null, "The film will be made available on the machine");
+            
+            this.dispose();
+            /* Create and display the main form */
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new XtraVisionXpress().setVisible(true);
+                }
+            });
+           
+            
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -276,7 +400,7 @@ public class MovieRentList extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelTotGeral;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTable jTabListSelectedMovies;
