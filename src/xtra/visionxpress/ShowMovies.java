@@ -33,6 +33,8 @@ public class ShowMovies extends javax.swing.JFrame {
         URL url = this.getClass().getResource("MovieIcon.png"); 
         Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url); 
         this.setIconImage(imagemTitulo);
+        
+        
     }
 
     
@@ -61,7 +63,7 @@ public class ShowMovies extends javax.swing.JFrame {
 
         jPanel1.setPreferredSize(new java.awt.Dimension(615, 420));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/xtra/visionxpress/Astra.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pics/Astra.jpg"))); // NOI18N
         jLabel1.setText("jLabel4");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -151,8 +153,7 @@ public class ShowMovies extends javax.swing.JFrame {
                                                 .addGap(28, 28, 28)
                                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(30, 30, 30)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGap(76, 76, 76)
                                 .addComponent(jLabel6)))))
@@ -201,28 +202,33 @@ public class ShowMovies extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        //open new window
         this.dispose();
-        new MovieSinopsy(1).setVisible(true);
+        new MovieSinopse(1).setVisible(true);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        //open new window
         this.dispose();
-        new MovieSinopsy(2).setVisible(true);
+        new MovieSinopse(2).setVisible(true);
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        //open new window
         this.dispose();
-        new MovieSinopsy(3).setVisible(true);
+        new MovieSinopse(3).setVisible(true);
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        //open new window
         this.dispose();
-        new MovieSinopsy(4).setVisible(true);
+        new MovieSinopse(4).setVisible(true);
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        //open new window
         this.dispose();
-        new MovieSinopsy(5).setVisible(true);
+        new MovieSinopse(5).setVisible(true);
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void btntouchtorent1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btntouchtorent1MouseClicked

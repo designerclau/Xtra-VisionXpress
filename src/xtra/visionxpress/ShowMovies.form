@@ -76,7 +76,6 @@
                                           <Component id="jLabel3" min="-2" pref="61" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
@@ -126,7 +125,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/xtra/visionxpress/Astra.jpg"/>
+              <Image iconType="3" name="/pics/Astra.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jLabel4"/>
           </Properties>

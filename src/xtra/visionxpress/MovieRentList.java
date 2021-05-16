@@ -9,11 +9,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
 import java.sql.Date;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,8 +21,8 @@ import javax.swing.table.DefaultTableModel;
 public class MovieRentList extends javax.swing.JFrame {
 
     /**
-     * Creates new form MenuShowMovies
-     */
+    * Creates new form Movie List
+    */
     private int idMovie;
     Movie movie = new Movie();
     //getting the current date of the system
@@ -39,7 +36,7 @@ public class MovieRentList extends javax.swing.JFrame {
         setLocationRelativeTo( null );
         setDefaultCloseOperation(MovieRentList.DISPOSE_ON_CLOSE);
         
-        //
+        //using variables
         idMovie=id;
         ListMovie(id);
         
@@ -53,6 +50,9 @@ public class MovieRentList extends javax.swing.JFrame {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+    * Method to show the movie on the table
+    */
     private void ListMovie(int id){
         
         //input in the table from the user selection
@@ -288,20 +288,27 @@ public class MovieRentList extends javax.swing.JFrame {
             });
     }//GEN-LAST:event_btntouchtorent1MouseClicked
 
+    /**
+    * Method to make payment
+    */
     private void paymentMaker(Rent rent, int movieid){
         
         JOptionPane.showMessageDialog(null, "Please insert your card all the way into the reader");
         User user = new User();
         
+        //instance of payment
         Payment payment = new Payment();
         Double total = rent.getQuantity()*2.99;
+        
+        //setting values to the payment class
         payment.setAmount(total);
         payment.setDate(rent.getDatarent());
         payment.setUser(user);
       
-        
+        //instance of PaymentDAO
         PaymentDAO pDAO = new PaymentDAO();
         
+        //saving the payment
         String xp = pDAO.Save(payment);
         
         //getting the payment Id added

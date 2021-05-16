@@ -1,27 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package xtra.visionxpress;
 
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+
 
 /**
  *
  * @author Claudinea de Almeida
  */
-public class MovieSinopsy extends javax.swing.JFrame {
+public class MovieSinopse extends javax.swing.JFrame {
 
     /**
-     * Creates new form MenuShowMovies
+     * Creates new form MovieSinopse
      */
     private int idfilm = 0;
-    public MovieSinopsy(int cod) {
+    public MovieSinopse(int cod) {
         initComponents();
         
         //Movie list
@@ -29,45 +23,48 @@ public class MovieSinopsy extends javax.swing.JFrame {
         idfilm = cod;
         //Open window on the centre
         setLocationRelativeTo( null );
-        setDefaultCloseOperation(MovieSinopsy.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(MovieSinopse.DISPOSE_ON_CLOSE);
         
          //setting the logo
         URL url = this.getClass().getResource("MovieIcon.png"); 
         Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url); 
         this.setIconImage(imagemTitulo);
     }
+    
+    //show the movie info in the label available
     public void readTable(int cod){
    
 
         MovieDAO dao = new MovieDAO();
-        //<html><b><u>T</u>wo</b><br>lines</html>
+        
+        //creating variables to be used into the system
         jLFilm1pic.setText("");
         String newdescription1 = "";
         String newdescription2 = "";
+        //for loop
         for(Movie e:dao.search(cod)){
             jLabelTitle.setText(e.getMovietitle());
             String Description = e.getDescription();
+            //checking the length of the text
             if (Description.length()>30){
                 newdescription1 = Description.substring(0, 30);
                 newdescription2 = Description.substring(31, Description.length());
-                JLabel label = new JLabel( "<html><i>This label has <br>two lines</i><html>");
-                //jLabelDescription.setText(label);
-                //jLabelDescription.set
                 jLabelDescription1.setText(newdescription1);
                 jLabelDescription2.setText(newdescription2);       
             }
             
+            //setting data from the database
             jLabelCast.setText(e.getCast());
             jLabelGenre.setText(e.getGenre());
+            //setting the image from the path reference recorded in the database
             jLFilm1pic.setIcon(new javax.swing.ImageIcon(getClass().getResource(e.getPicture())));
 
         }
         
-        
     }
     
     
-    private MovieSinopsy() {
+    private MovieSinopse() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -281,14 +278,18 @@ public class MovieSinopsy extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MovieSinopsy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MovieSinopse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MovieSinopsy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MovieSinopse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MovieSinopsy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MovieSinopse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MovieSinopsy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MovieSinopse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -297,7 +298,7 @@ public class MovieSinopsy extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MovieSinopsy().setVisible(true);
+                new MovieSinopse().setVisible(true);
             }
         });
     }

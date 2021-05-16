@@ -5,15 +5,10 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
-import java.text.DateFormat;
-import java.util.GregorianCalendar;
+
 
 /**
  *
@@ -22,9 +17,9 @@ import java.util.GregorianCalendar;
 public class CardPayment extends javax.swing.JFrame {
 
     /**
-     * Creates new form MenuShowMovies
+     * Creates new form CardPayment
      */
-    //java.sql.Date actualdev = new java.sql.Date(System.currentTimeMillis()+7);
+   
     int id = 0;
     
     public CardPayment(Rent rent, int movieid) throws ParseException {

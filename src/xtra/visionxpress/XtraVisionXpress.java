@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package xtra.visionxpress;
 
 import java.awt.Image;
@@ -11,7 +7,7 @@ import java.net.URL;
 
 /**
  *
- * @author 35383
+ * @author Claudinea de Almeida
  */
 public class XtraVisionXpress extends javax.swing.JFrame {
 
@@ -161,6 +157,7 @@ public class XtraVisionXpress extends javax.swing.JFrame {
     }//GEN-LAST:event_btnsaverosterActionPerformed
 
     private void btntouchtorentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntouchtorentActionPerformed
+        //open showmovies window
         this.dispose();
         new ShowMovies().setVisible(true);
     }//GEN-LAST:event_btntouchtorentActionPerformed

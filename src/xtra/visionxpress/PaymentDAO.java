@@ -94,6 +94,7 @@ public class PaymentDAO {
                 payment.setDate(rs.getDate("time"));
               //  payment.setUser(rs.getString(User user));
           
+               //add the payment to the list
                 payments.add(payment);
             }
         } catch (SQLException ex) {
